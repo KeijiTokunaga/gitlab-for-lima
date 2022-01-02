@@ -1,0 +1,17 @@
+version: "3"
+services:
+  web:
+    image: "yrzr/gitlab-ce-arm64v8"
+    restart: always
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'http://127.0.0.1:8929'
+        gitlab_rails['gitlab_shell_ssh_port'] = 2224
+        nginx['listen_port'] = 80
+    ports:
+      - "8929:80"
+      - "2224:22"
+    volumes:
+      - "~/work/gitlab/config:/etc/gitlab"
+      - "~/work/gitlab/logs:/var/log/gitlab"
+      - "~/work/gitlab/data:/var/opt/gitlab"
